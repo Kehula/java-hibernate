@@ -2,22 +2,24 @@ import com.sun.istack.NotNull;
 import jdk.nashorn.internal.objects.annotations.Getter;
 import jdk.nashorn.internal.objects.annotations.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * @author kehul on 06.08.2020
  */
-@Entity(name = "hibernate_test_data")
+@Entity
+@Table(name = "hibernate_test_data")
 public class HibernateTestData {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private Integer id;
 	
+	@Column(name = "NAME")
 	private String name;
 	
+	@Column(name = "CAPTION")
 	private String caption;
 	
 	public void setId(@NotNull Integer value) {

@@ -50,7 +50,7 @@ public class Main {
 			session.getTransaction().commit();
 			
 			session.beginTransaction();
-			List<HibernateTestData> dataList = session.createQuery("from hibernate_test_data").list();
+			List<HibernateTestData> dataList = session.createQuery("from HibernateTestData").list();
 			dataList.forEach(item -> System.out.println(String.format("\t%10d|%20s|%20s|", item.getId(), item.getName(), item.getCaption())));
 			session.getTransaction().commit();
 			session.close();
