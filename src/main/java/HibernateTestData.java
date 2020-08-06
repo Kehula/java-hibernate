@@ -9,7 +9,7 @@ import javax.persistence.Id;
 /**
  * @author kehul on 06.08.2020
  */
-@Entity
+@Entity(name = "hibernate_test_data")
 public class HibernateTestData {
 	
 	@Id
@@ -20,32 +20,26 @@ public class HibernateTestData {
 	
 	private String caption;
 	
-	//@Setter(name = "ID")
 	public void setId(@NotNull Integer value) {
 		id = value;
 	}
 	
-	//@Setter(name = "NAME")
 	public void setName(String value) {
 		name = value;
 	}
 	
-	//@Setter(name = "CAPTION")
 	public void setCaption(String value) {
 		caption = value;
 	}
 	
-	//@Getter(name = "ID")
 	public Integer getId() {
 		return id;
 	}
 	
-	//@Getter(name = "NAME")
 	public String getName() {
 		return name;
 	}
 	
-	//@Getter(name = "CAPTION")
 	public String getCaption() {
 		return caption;
 	}
