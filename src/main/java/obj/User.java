@@ -17,7 +17,7 @@ public class User {
   @Column(name="age")
   private int age;
 
-  @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Auto> autos;
 
   public User() {
