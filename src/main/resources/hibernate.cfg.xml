@@ -8,6 +8,6 @@
         <property name="show_sql">true</property>
 
 
-        <mapping class="HibernateTestData"/>
+        <mapping class="obj.HibernateTestData"/>
     </session-factory>
 </hibernate-configuration>

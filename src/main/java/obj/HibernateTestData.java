@@ -1,7 +1,6 @@
-import com.sun.istack.NotNull;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
+package obj;
 
+import com.sun.istack.NotNull;
 import javax.persistence.*;
 
 /**
