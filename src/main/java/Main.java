@@ -16,7 +16,7 @@ public class Main {
 		System.out.println("Direct SQL:");
 		System.out.println("\tTesting connection...");
 		try {
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "sysdba", "masterkey");
+			Connection con = DriverManager.getConnection("jdbc:mysql://192.168.2.105:3306/webshop", "sysdba", "masterkey");
 			if (!con.isClosed()) {
 				System.out.println("\tConnection opened!");
 				
