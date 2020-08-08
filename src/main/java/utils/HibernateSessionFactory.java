@@ -13,8 +13,8 @@ public class HibernateSessionFactory {
     if (sessionFactory == null) {
       try {
         Configuration conf = new Configuration().configure();
-//        conf.addAnnotatedClass(Auto.class);
-//        conf.addAnnotatedClass(User.class);
+        conf.addAnnotatedClass(Auto.class);
+        conf.addAnnotatedClass(User.class);
         StandardServiceRegistryBuilder registryBuilder = new StandardServiceRegistryBuilder();
         registryBuilder.applySettings(conf.getProperties());
         sessionFactory = conf.buildSessionFactory(registryBuilder.build());

@@ -62,6 +62,15 @@ public class User {
   }
 
   @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof User) {
+      User user = (User) obj;
+      return this.id == user.id && this.name.equals(user.name) && this.age == user.age;
+    }
+    return false;
+  }
+
+  @Override
   public String toString() {
     return String.format("id: %d|User: %s|Age: %d|",id, name, age);
   }

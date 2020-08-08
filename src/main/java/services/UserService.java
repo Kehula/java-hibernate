@@ -24,11 +24,13 @@ public class UserService {
   }
 
   public void updateUser(User user) {
-    userDao.update(user);
+    if (user != null)
+      userDao.update(user);
   }
 
   public void deleteUser(User user) {
-    userDao.delete(user);
+    if (user != null)
+      userDao.delete(user);
   }
 
   public List<User> findAllUsers() {
