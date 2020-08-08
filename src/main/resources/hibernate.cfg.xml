@@ -9,5 +9,7 @@
 
 
         <mapping class="obj.HibernateTestData"/>
+        <mapping class="obj.User"/>
+        <mapping class="obj.Auto"/>
     </session-factory>
 </hibernate-configuration>
