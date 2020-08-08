@@ -5,10 +5,19 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateSessionFactory;
 
-public class AutoDao {
-  public Auto findById(int id) {
+import java.util.List;
+
+class AutoDao<T extends Auto> implements Dao<T> {
+  public T findById(int id) {
     try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
-      return session.get(Auto.class, id);
+      return (T) session.get(Auto.class, id);
+    }
+  }
+
+  @Override
+  public List<T> findAll() {
+    try(Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+      return (List<T>) session.createQuery("from Auto").list();
     }
   }
 

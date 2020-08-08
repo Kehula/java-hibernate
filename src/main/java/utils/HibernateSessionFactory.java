@@ -1,7 +1,5 @@
 package utils;
 
-import obj.Auto;
-import obj.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -13,10 +11,12 @@ public class HibernateSessionFactory {
     if (sessionFactory == null) {
       try {
         Configuration conf = new Configuration().configure();
-        conf.addAnnotatedClass(Auto.class);
-        conf.addAnnotatedClass(User.class);
+        //conf.addAnnotatedClass(Auto.class);
+        //conf.addAnnotatedClass(User.class);
+        //conf.addAnnotatedClass(Employee.class);
         StandardServiceRegistryBuilder registryBuilder = new StandardServiceRegistryBuilder();
         registryBuilder.applySettings(conf.getProperties());
+        registryBuilder.configure();
         sessionFactory = conf.buildSessionFactory(registryBuilder.build());
 
       } catch (Exception e) {

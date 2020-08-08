@@ -13,5 +13,6 @@
         <mapping class="obj.HibernateTestData"/>
         <mapping class="obj.User"/>
         <mapping class="obj.Auto"/>
+        <mapping class="obj.Employee"/>
     </session-factory>
 </hibernate-configuration>

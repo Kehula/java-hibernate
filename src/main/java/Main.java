@@ -1,4 +1,5 @@
 import obj.Auto;
+import obj.Employee;
 import obj.HibernateTestData;
 import obj.User;
 import org.hibernate.Session;
@@ -6,10 +7,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import services.EmployeeService;
 import services.UserService;
 
 import java.sql.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author kehul on 06.08.2020
@@ -86,16 +89,30 @@ public class Main {
 		userService.updateUser(user2);
 
 		List<User> users = userService.findAllUsers();
-		users.forEach(user -> System.out.println(user));
+		users.forEach(System.out::println);
 
 		//userService.deleteUser(users.stream().filter(user -> user.getId() == 1).findFirst().get());
 		userService.deleteUser(users.get(0));
 		List<User> usersAfterDelete = userService.findAllUsers();
 
 		System.out.println("Deleted users:");
-		users.forEach(user -> {
-			if (!usersAfterDelete.contains(user))
-				System.out.println(user);
-		});
+		users.stream().filter(user -> !usersAfterDelete.contains(user)).collect(Collectors.toList()).
+				forEach(System.out::println);
+
+		Employee employee = new Employee("Don", 35);
+		employee.setSalary(100000);
+		userService.saveUser(employee);
+
+		EmployeeService employeeService = new EmployeeService();
+		List<Employee> employees = employeeService.findAllEmployees();
+		employees.forEach(System.out::println);
+
+		employeeService.deleteUser(employees.get(0));
+
+		List<Employee> employeesAfterDelete = employeeService.findAllEmployees();
+		System.out.println("Deleted employees:");
+
+		employees.stream().filter(empl -> !employeesAfterDelete.contains(empl)).collect(Collectors.toList()).
+				forEach(System.out::println);
 	}
 }

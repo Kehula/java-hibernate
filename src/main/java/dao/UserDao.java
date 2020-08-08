@@ -7,10 +7,10 @@ import utils.HibernateSessionFactory;
 
 import java.util.List;
 
-public class UserDao {
-  public User findById(int id) {
+class UserDao<T extends User> implements Dao<T>{
+  public T findById(int id) {
     try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
-      return session.get(User.class, id);
+      return (T)session.get(User.class, id);
     }
   }
 
@@ -38,9 +38,9 @@ public class UserDao {
     }
   }
 
-  public List<User> findAll() {
+  public List<T> findAll() {
     try(Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
-      return (List<User>) session.createQuery("from User").list();
+      return (List<T>) session.createQuery("from User").list();
     }
   }
 }

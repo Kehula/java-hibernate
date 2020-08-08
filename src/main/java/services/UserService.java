@@ -1,43 +1,52 @@
 package services;
 
-import dao.AutoDao;
-import dao.UserDao;
+import dao.Dao;
+import dao.DaoFactory;
 import obj.Auto;
 import obj.User;
 
 import java.util.List;
 
 public class UserService {
-  private UserDao userDao = new UserDao();
-  private AutoDao autoDao = new AutoDao();
+  private Dao userDao;
+  private Dao autoDao;
 
   public UserService() {
+    userDao = DaoFactory.getInstance().getInstance(User.class);
+    autoDao = DaoFactory.getInstance().getInstance(Auto.class);
+  }
 
+  protected Dao getUserDao() {
+    return userDao;
+  }
+
+  protected Dao getAutoDao() {
+    return autoDao;
   }
 
   public User findUser(int id) {
-    return userDao.findById(id);
+    return (User)getUserDao().findById(id);
   }
 
   public void saveUser(User user) {
-    userDao.save(user);
+    getUserDao().save(user);
   }
 
   public void updateUser(User user) {
     if (user != null)
-      userDao.update(user);
+      getUserDao().update(user);
   }
 
   public void deleteUser(User user) {
     if (user != null)
-      userDao.delete(user);
+      getUserDao().delete(user);
   }
 
-  public List<User> findAllUsers() {
-    return userDao.findAll();
+  public final List<User> findAllUsers() {
+    return getUserDao().findAll();
   }
 
   public Auto findAuto(int id) {
-    return autoDao.findById(id);
+    return (Auto) getAutoDao().findById(id);
   }
 }
