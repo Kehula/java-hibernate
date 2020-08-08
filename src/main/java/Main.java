@@ -91,10 +91,10 @@ public class Main {
 		List<User> users = userService.findAllUsers();
 		users.forEach(System.out::println);
 
-		//userService.deleteUser(users.stream().filter(user -> user.getId() == 1).findFirst().get());
 		userService.deleteUser(users.get(0));
 		List<User> usersAfterDelete = userService.findAllUsers();
 
+		//users - usersAfterDelete
 		System.out.println("Deleted users:");
 		users.stream().filter(user -> !usersAfterDelete.contains(user)).collect(Collectors.toList()).
 				forEach(System.out::println);
@@ -110,8 +110,9 @@ public class Main {
 		employeeService.deleteUser(employees.get(0));
 
 		List<Employee> employeesAfterDelete = employeeService.findAllEmployees();
-		System.out.println("Deleted employees:");
 
+		//employees - employeesAfterDelete
+		System.out.println("Deleted employees:");
 		employees.stream().filter(empl -> !employeesAfterDelete.contains(empl)).collect(Collectors.toList()).
 				forEach(System.out::println);
 	}
