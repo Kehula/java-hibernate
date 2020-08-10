@@ -74,12 +74,12 @@ public class Main {
 		CriteriaQuery<User> query = cb.createQuery(User.class);
 		Root<User> userRoot = query.from(User.class);
 		query.select(userRoot);
-		query.where(cb.equal(userRoot.get(User_.AGE), 35));
+		query.where(cb.equal(userRoot.get(User_.age), 35));
 		System.out.println("age = 35");
 		em.createQuery(query).getResultList().forEach(System.out::println);
 
 		System.out.println("\nid between 20 and 30");
-		query.where(cb.between(userRoot.get(User_.ID), 20, 30));
+		query.where(cb.between(userRoot.get(User_.id), 20, 30));
 		em.createQuery(query).getResultList().forEach(System.out::println);
 		em.getTransaction().commit();
 		em.close();
