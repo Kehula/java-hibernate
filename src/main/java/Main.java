@@ -9,7 +9,12 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import services.EmployeeService;
 import services.UserService;
+import utils.HibernateSessionFactory;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.sql.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -115,5 +120,17 @@ public class Main {
 		System.out.println("Deleted employees:");
 		employees.stream().filter(empl -> !employeesAfterDelete.contains(empl)).collect(Collectors.toList()).
 				forEach(System.out::println);
+
+		System.out.println("Queries through CriteriaBuilder & EntityManager");
+		EntityManager em = HibernateSessionFactory.getSessionFactory().createEntityManager();
+		em.getTransaction().begin();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<User> query = cb.createQuery(User.class);
+		Root<User> userRoot = query.from(User.class);
+		query.select(userRoot);
+		query.where(cb.equal(userRoot.get("age"), 35));
+		em.createQuery(query).getResultList().forEach(System.out::println);
+		em.getTransaction().commit();
+		em.close();
 	}
 }
