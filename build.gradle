@@ -13,8 +13,22 @@ repositories {
 
 dependencies {
     compile "org.hibernate:hibernate-core:5.4.19.Final"
+    compile group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: '5.4.19.Final'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'
+    annotationProcessor('org.hibernate:hibernate-jpamodelgen:5.4.19.Final')
 
-    
+    tasks.withType(JavaCompile) {
+        options.annotationProcessorGeneratedSourcesDirectory = file("src/main/java/generated")
+    }
+
+
+    sourceSets {
+        generated {
+            java {
+                srcDirs = ['src/main/java/generated']
+            }
+        }
+    }
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

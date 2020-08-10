@@ -10,7 +10,6 @@
         <property name="show_sql">true</property>
 
 
-        <mapping class="obj.HibernateTestData"/>
         <mapping class="obj.User"/>
         <mapping class="obj.Auto"/>
         <mapping class="obj.Employee"/>

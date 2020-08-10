@@ -1,12 +1,7 @@
 import obj.Auto;
 import obj.Employee;
-import obj.HibernateTestData;
 import obj.User;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import obj.User_;
 import services.EmployeeService;
 import services.UserService;
 import utils.HibernateSessionFactory;
@@ -15,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.sql.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,54 +21,6 @@ public class Main {
 	public static void main(String[] args) {
 		//firstTest();
 		secondTest();
-	}
-
-	public static void firstTest() {
-		System.out.println("Direct SQL:");
-		System.out.println("\tTesting connection...");
-		try {
-			//Connection con = DriverManager.getConnection("jdbc:mysql://192.168.2.105:3306/webshop", "sysdba", "masterkey");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "sysdba", "masterkey");
-			if (!con.isClosed()) {
-				System.out.println("\tConnection opened!");
-
-				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from test_table");
-				while (rs.next()) {
-					System.out.println(String.format("\t|%10d|%20s|", rs.getInt(1), rs.getString(2)));
-				}
-			}
-			System.out.println("\tClosing connection\n");
-			con.close();
-
-			System.out.println("Hibernate connection:");
-			HibernateTestData data = new HibernateTestData();
-			data.setName("Hibernate");
-			data.setCaption("Hello world!");
-
-			StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-			SessionFactory sessionFactory;
-			try {
-				sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-			} catch (Exception e) {
-				StandardServiceRegistryBuilder.destroy(registry);
-				throw e;
-			}
-			Session session = sessionFactory.openSession();
-			session.beginTransaction();
-
-			session.save(data);
-
-			session.getTransaction().commit();
-
-			session.beginTransaction();
-			List<HibernateTestData> dataList = session.createQuery("from HibernateTestData").list();
-			dataList.forEach(item -> System.out.println(String.format("\t%10d|%20s|%20s|", item.getId(), item.getName(), item.getCaption())));
-			session.getTransaction().commit();
-			session.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static void secondTest() {
@@ -128,12 +74,12 @@ public class Main {
 		CriteriaQuery<User> query = cb.createQuery(User.class);
 		Root<User> userRoot = query.from(User.class);
 		query.select(userRoot);
-		query.where(cb.equal(userRoot.get("age"), 35));
+		query.where(cb.equal(userRoot.get(User_.AGE), 35));
 		System.out.println("age = 35");
 		em.createQuery(query).getResultList().forEach(System.out::println);
 
 		System.out.println("\nid between 20 and 30");
-		query.where(cb.between(userRoot.get("id"), 20, 30));
+		query.where(cb.between(userRoot.get(User_.ID), 20, 30));
 		em.createQuery(query).getResultList().forEach(System.out::println);
 		em.getTransaction().commit();
 		em.close();
