@@ -129,6 +129,11 @@ public class Main {
 		Root<User> userRoot = query.from(User.class);
 		query.select(userRoot);
 		query.where(cb.equal(userRoot.get("age"), 35));
+		System.out.println("age = 35");
+		em.createQuery(query).getResultList().forEach(System.out::println);
+
+		System.out.println("\nid between 20 and 30");
+		query.where(cb.between(userRoot.get("id"), 20, 30));
 		em.createQuery(query).getResultList().forEach(System.out::println);
 		em.getTransaction().commit();
 		em.close();
